@@ -1,0 +1,649 @@
+2025-10-02 14:16:44,265 - INFO - ARES evaluation started.
+2025-10-02 14:16:44,266 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:16:44,267 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:16:44,267 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:16:44,315 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:16:44,316 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:16:44,335 - INFO - ==========Target==========
+2025-10-02 14:16:44,335 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:16:44,335 - INFO - Initializing driver for Chrome
+2025-10-02 14:16:45,095 - INFO - ==========Goals==========
+2025-10-02 14:16:45,095 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:16:45,097 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:16:45,098 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:16:45,098 - INFO - ========Strategies=======
+2025-10-02 14:16:45,098 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:16:45,098 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:16:45,098 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:16:45,103 - INFO - Opening target webpage
+2025-10-02 14:16:45,470 - INFO - Submitting prompt for evaluation
+2025-10-02 14:16:47,119 - INFO - Extracting response..
+2025-10-02 14:16:54,695 - INFO - Not opening again to keep current session
+2025-10-02 14:16:54,696 - INFO - Submitting prompt for evaluation
+2025-10-02 14:16:54,754 - INFO - Extracting response..
+2025-10-02 14:17:02,320 - INFO - Not opening again to keep current session
+2025-10-02 14:17:02,320 - INFO - Submitting prompt for evaluation
+2025-10-02 14:17:02,384 - INFO - Extracting response..
+2025-10-02 14:17:09,952 - INFO - Not opening again to keep current session
+2025-10-02 14:17:09,952 - INFO - Submitting prompt for evaluation
+2025-10-02 14:17:10,024 - INFO - Extracting response..
+2025-10-02 14:17:17,590 - INFO - Not opening again to keep current session
+2025-10-02 14:17:17,590 - INFO - Submitting prompt for evaluation
+2025-10-02 14:17:17,651 - INFO - Extracting response..
+2025-10-02 14:17:29,752 - INFO - Saving attack results to assets/direct_requests.json
+2025-10-02 14:17:29,754 - INFO - =======Evaluations=======
+2025-10-02 14:17:29,754 - INFO - AttackEval initialized with config: {'name': keyword}
+2025-10-02 14:17:29,755 - ERROR - [Errno 2] No such file or directory: 'assets/advbench_refusal_keywords.json'
+2025-10-02 14:18:29,103 - ERROR - prompts error for seeds.csv.
+2025-10-02 14:18:53,284 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:18:53,285 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:18:53,286 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:18:53,335 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:18:53,335 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:18:53,355 - INFO - ==========Target==========
+2025-10-02 14:18:53,355 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:18:53,355 - INFO - Initializing driver for Chrome
+2025-10-02 14:18:54,196 - INFO - Opening target webpage
+2025-10-02 14:18:54,582 - INFO - Submitting prompt for evaluation
+2025-10-02 14:18:56,696 - INFO - Extracting response..
+2025-10-02 14:19:06,777 - INFO - Not opening again to keep current session
+2025-10-02 14:19:06,778 - INFO - Submitting prompt for evaluation
+2025-10-02 14:23:47,212 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:23:47,213 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:23:47,214 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:23:47,264 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:23:47,264 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:23:47,287 - INFO - ==========Target==========
+2025-10-02 14:23:47,287 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:23:47,287 - INFO - Initializing driver for Chrome
+2025-10-02 14:23:48,049 - INFO - Opening target webpage
+2025-10-02 14:23:48,373 - INFO - Submitting prompt for evaluation
+2025-10-02 14:23:50,532 - INFO - Extracting response..
+2025-10-02 14:24:02,636 - INFO - Not opening again to keep current session
+2025-10-02 14:24:02,637 - INFO - Submitting prompt for evaluation
+2025-10-02 14:24:02,709 - INFO - Extracting response..
+2025-10-02 14:24:20,856 - INFO - Not opening again to keep current session
+2025-10-02 14:24:20,857 - INFO - Submitting prompt for evaluation
+2025-10-02 14:25:41,250 - INFO - ARES evaluation started.
+2025-10-02 14:25:41,251 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:25:41,252 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:25:41,252 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:25:41,299 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:25:41,299 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:25:41,318 - INFO - ==========Target==========
+2025-10-02 14:25:41,318 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:25:41,318 - INFO - Initializing driver for Chrome
+2025-10-02 14:25:42,026 - INFO - ==========Goals==========
+2025-10-02 14:25:42,027 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:25:42,028 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:25:42,029 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:25:42,029 - INFO - ========Strategies=======
+2025-10-02 14:25:42,029 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:25:42,029 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:25:42,029 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:25:42,035 - INFO - Opening target webpage
+2025-10-02 14:25:42,108 - ERROR - WebDriver Error: Message: unknown error: net::ERR_CONNECTION_REFUSED
+  (Session info: chrome=140.0.7339.215)
+Stacktrace:
+0   chromedriver                        0x00000001007c3274 cxxbridge1$str$ptr + 2882596
+1   chromedriver                        0x00000001007bb1a0 cxxbridge1$str$ptr + 2849616
+2   chromedriver                        0x00000001002e5180 _RNvCslE4myv9Sbr3_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 73420
+3   chromedriver                        0x00000001002dd5b4 _RNvCslE4myv9Sbr3_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 41728
+4   chromedriver                        0x00000001002d01d0 cxxbridge1$string$len + 4716
+5   chromedriver                        0x00000001002d1bd0 cxxbridge1$string$len + 11372
+6   chromedriver                        0x00000001002d0624 cxxbridge1$string$len + 5824
+7   chromedriver                        0x00000001002cff38 cxxbridge1$string$len + 4052
+8   chromedriver                        0x00000001002cfcc4 cxxbridge1$string$len + 3424
+9   chromedriver                        0x00000001002cdac0 chromedriver + 203456
+10  chromedriver                        0x00000001002ce51c chromedriver + 206108
+11  chromedriver                        0x00000001002e81e4 _RNvCslE4myv9Sbr3_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 85808
+12  chromedriver                        0x000000010036e180 _RNvCslE4myv9Sbr3_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 634572
+13  chromedriver                        0x000000010036d6c8 _RNvCslE4myv9Sbr3_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 631828
+14  chromedriver                        0x0000000100320188 _RNvCslE4myv9Sbr3_7___rustc35___rust_no_alloc_shim_is_unstable_v2 + 315092
+15  chromedriver                        0x0000000100786c54 cxxbridge1$str$ptr + 2635268
+16  chromedriver                        0x0000000100789e6c cxxbridge1$str$ptr + 2648092
+17  chromedriver                        0x00000001007685d4 cxxbridge1$str$ptr + 2510724
+18  chromedriver                        0x000000010078a718 cxxbridge1$str$ptr + 2650312
+19  chromedriver                        0x0000000100759d7c cxxbridge1$str$ptr + 2451244
+20  chromedriver                        0x00000001007a9dd4 cxxbridge1$str$ptr + 2779012
+21  chromedriver                        0x00000001007a9f54 cxxbridge1$str$ptr + 2779396
+22  chromedriver                        0x00000001007badec cxxbridge1$str$ptr + 2848668
+23  libsystem_pthread.dylib             0x000000019a3c1f94 _pthread_start + 136
+24  libsystem_pthread.dylib             0x000000019a3bcd34 thread_start + 8
+
+2025-10-02 14:29:23,760 - INFO - ARES evaluation started.
+2025-10-02 14:29:23,761 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:29:23,761 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:29:23,761 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:29:23,810 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:29:23,811 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:29:23,830 - INFO - ==========Target==========
+2025-10-02 14:29:23,830 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:29:23,830 - INFO - Initializing driver for Chrome
+2025-10-02 14:29:24,617 - INFO - ==========Goals==========
+2025-10-02 14:29:24,617 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:29:24,619 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:29:24,619 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:29:24,619 - INFO - ========Strategies=======
+2025-10-02 14:29:24,619 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:29:24,619 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:29:24,619 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:29:24,624 - INFO - Opening target webpage
+2025-10-02 14:29:25,009 - INFO - Submitting prompt for evaluation
+2025-10-02 14:29:26,657 - INFO - Extracting response..
+2025-10-02 14:29:35,778 - INFO - Not opening again to keep current session
+2025-10-02 14:29:35,778 - INFO - Submitting prompt for evaluation
+2025-10-02 14:29:35,839 - INFO - Extracting response..
+2025-10-02 14:35:07,584 - INFO - ARES evaluation started.
+2025-10-02 14:35:07,586 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:35:07,586 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:35:07,586 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:35:07,633 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:35:07,633 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:35:07,653 - INFO - ==========Target==========
+2025-10-02 14:35:07,653 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:35:07,653 - INFO - Initializing driver for Chrome
+2025-10-02 14:35:08,406 - INFO - ==========Goals==========
+2025-10-02 14:35:08,407 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:35:08,409 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:35:08,409 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:35:08,410 - INFO - ========Strategies=======
+2025-10-02 14:35:08,410 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:35:08,410 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:35:08,410 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:35:08,415 - INFO - Opening target webpage
+2025-10-02 14:35:08,794 - INFO - Submitting prompt for evaluation
+2025-10-02 14:35:10,463 - INFO - Extracting response..
+2025-10-02 14:35:33,591 - INFO - ARES evaluation started.
+2025-10-02 14:35:33,592 - ERROR - 'prompts' parameter not found
+2025-10-02 14:35:33,593 - ERROR - Invalid configuration: 'prompts'.
+2025-10-02 14:35:55,087 - INFO - ARES evaluation started.
+2025-10-02 14:35:55,088 - ERROR - 'prompts' parameter not found
+2025-10-02 14:35:55,088 - ERROR - Invalid configuration: 'prompts'.
+2025-10-02 14:37:33,556 - INFO - ARES evaluation started.
+2025-10-02 14:37:33,557 - ERROR - 'prompts' parameter not found
+2025-10-02 14:37:33,557 - ERROR - Invalid configuration: 'prompts'.
+2025-10-02 14:37:50,101 - INFO - ARES evaluation started.
+2025-10-02 14:37:50,102 - ERROR - 'prompts' parameter not found
+2025-10-02 14:37:50,103 - ERROR - Invalid configuration: 'prompts'.
+2025-10-02 14:38:40,931 - INFO - ARES evaluation started.
+2025-10-02 14:38:40,932 - ERROR - 'prompts' parameter not found
+2025-10-02 14:38:40,932 - ERROR - Invalid configuration: 'prompts'.
+2025-10-02 14:39:13,939 - INFO - ARES evaluation started.
+2025-10-02 14:39:13,941 - ERROR - 'prompts' parameter not found
+2025-10-02 14:39:13,941 - ERROR - Invalid configuration: 'prompts'.
+2025-10-02 14:41:48,245 - INFO - ARES evaluation started.
+2025-10-02 14:41:48,246 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:41:48,246 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:41:48,246 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:41:48,294 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:41:48,294 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:41:48,316 - INFO - ==========Target==========
+2025-10-02 14:41:48,316 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:41:48,316 - INFO - Initializing driver for Chrome
+2025-10-02 14:41:49,054 - INFO - ==========Goals==========
+2025-10-02 14:41:49,055 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:41:49,056 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:41:49,057 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:41:49,057 - INFO - ========Strategies=======
+2025-10-02 14:41:49,057 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:41:49,057 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:41:49,057 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:41:49,062 - INFO - Opening target webpage
+2025-10-02 14:41:49,437 - INFO - Submitting prompt for evaluation
+2025-10-02 14:41:51,099 - INFO - Extracting response..
+2025-10-02 14:42:00,214 - INFO - Not opening again to keep current session
+2025-10-02 14:42:00,215 - INFO - Submitting prompt for evaluation
+2025-10-02 14:42:00,285 - INFO - Extracting response..
+2025-10-02 14:43:02,792 - INFO - ARES evaluation started.
+2025-10-02 14:43:02,793 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:43:02,793 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:43:02,793 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:43:02,841 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:43:02,841 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:43:02,861 - INFO - ==========Target==========
+2025-10-02 14:43:02,861 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:43:02,861 - INFO - Initializing driver for Chrome
+2025-10-02 14:43:03,620 - INFO - ==========Goals==========
+2025-10-02 14:43:03,621 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:43:03,622 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:43:03,623 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:43:03,623 - INFO - ========Strategies=======
+2025-10-02 14:43:03,623 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:43:03,623 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:43:03,623 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:43:03,628 - INFO - Opening target webpage
+2025-10-02 14:43:04,008 - INFO - Submitting prompt for evaluation
+2025-10-02 14:43:05,532 - ERROR - Cannot find text area!
+2025-10-02 14:43:05,533 - ERROR - Cannot find text area!
+2025-10-02 14:47:23,750 - INFO - ARES evaluation started.
+2025-10-02 14:47:23,751 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:47:23,751 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:47:23,751 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:47:23,798 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:47:23,799 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:47:23,818 - INFO - ==========Target==========
+2025-10-02 14:47:23,818 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:47:23,818 - INFO - Initializing driver for Chrome
+2025-10-02 14:47:24,588 - INFO - ==========Goals==========
+2025-10-02 14:47:24,588 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:47:24,589 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:47:24,590 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:47:24,590 - INFO - ========Strategies=======
+2025-10-02 14:47:24,590 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:47:24,590 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:47:24,590 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:47:24,596 - INFO - Opening target webpage
+2025-10-02 14:47:24,973 - INFO - Submitting prompt for evaluation
+2025-10-02 14:47:26,592 - INFO - Extracting response..
+2025-10-02 14:47:35,715 - INFO - Not opening again to keep current session
+2025-10-02 14:47:35,715 - INFO - Submitting prompt for evaluation
+2025-10-02 14:47:35,767 - INFO - Extracting response..
+2025-10-02 14:53:48,842 - INFO - ARES evaluation started.
+2025-10-02 14:53:48,844 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:53:48,844 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:53:48,844 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:53:48,894 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:53:48,894 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:53:48,918 - INFO - ==========Target==========
+2025-10-02 14:53:48,918 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:53:48,918 - INFO - Initializing driver for Chrome
+2025-10-02 14:53:49,984 - INFO - ==========Goals==========
+2025-10-02 14:53:49,984 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:53:49,986 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:53:49,986 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:53:49,987 - INFO - ========Strategies=======
+2025-10-02 14:53:49,987 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:53:49,987 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:53:49,987 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:53:49,992 - INFO - Opening target webpage
+2025-10-02 14:53:50,376 - INFO - Submitting prompt for evaluation
+2025-10-02 14:53:52,034 - INFO - Extracting response..
+2025-10-02 14:54:50,798 - INFO - ARES evaluation started.
+2025-10-02 14:54:50,800 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:54:50,800 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:54:50,800 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:54:50,847 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:54:50,847 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:54:50,867 - INFO - ==========Target==========
+2025-10-02 14:54:50,867 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:54:50,867 - INFO - Initializing driver for Chrome
+2025-10-02 14:54:51,512 - INFO - ==========Goals==========
+2025-10-02 14:54:51,512 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:54:51,514 - ERROR - Unknown 'goal' in dataset. Expected goal is 'Behavior'.
+2025-10-02 14:56:44,606 - INFO - ARES evaluation started.
+2025-10-02 14:56:44,607 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:56:44,607 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:56:44,607 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:56:44,658 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:56:44,659 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:56:44,679 - INFO - ==========Target==========
+2025-10-02 14:56:44,679 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:56:44,680 - INFO - Initializing driver for Chrome
+2025-10-02 14:56:45,435 - INFO - ==========Goals==========
+2025-10-02 14:56:45,435 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:56:45,437 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:56:45,438 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:56:45,438 - INFO - ========Strategies=======
+2025-10-02 14:56:45,438 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:56:45,438 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:56:45,438 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:56:45,443 - INFO - Opening target webpage
+2025-10-02 14:56:45,814 - INFO - Submitting prompt for evaluation
+2025-10-02 14:56:47,466 - INFO - Extracting response..
+2025-10-02 14:56:56,573 - INFO - Not opening again to keep current session
+2025-10-02 14:56:56,574 - INFO - Submitting prompt for evaluation
+2025-10-02 14:56:56,590 - ERROR - Cannot find text area!
+2025-10-02 14:56:56,594 - ERROR - Cannot find text area!
+2025-10-02 14:58:04,768 - INFO - ARES evaluation started.
+2025-10-02 14:58:04,769 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:58:04,769 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:58:04,769 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:58:04,819 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:58:04,819 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:58:04,840 - INFO - ==========Target==========
+2025-10-02 14:58:04,840 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:58:04,840 - INFO - Initializing driver for Chrome
+2025-10-02 14:58:05,585 - INFO - ==========Goals==========
+2025-10-02 14:58:05,586 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:58:05,587 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:58:05,588 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:58:05,588 - INFO - ========Strategies=======
+2025-10-02 14:58:05,588 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:58:05,588 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:58:05,589 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:58:05,594 - INFO - Opening target webpage
+2025-10-02 14:58:05,969 - INFO - Submitting prompt for evaluation
+2025-10-02 14:58:07,597 - INFO - Extracting response..
+2025-10-02 14:58:16,705 - INFO - Not opening again to keep current session
+2025-10-02 14:58:16,705 - INFO - Submitting prompt for evaluation
+2025-10-02 14:58:16,769 - INFO - Extracting response..
+2025-10-02 14:58:30,427 - INFO - Not opening again to keep current session
+2025-10-02 14:58:30,428 - INFO - Submitting prompt for evaluation
+2025-10-02 14:58:30,498 - INFO - Extracting response..
+2025-10-02 14:59:15,182 - INFO - ARES evaluation started.
+2025-10-02 14:59:15,183 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 14:59:15,183 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 14:59:15,183 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 14:59:15,233 - INFO - External connectors found in ares plugins: []:
+2025-10-02 14:59:15,233 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 14:59:15,255 - INFO - ==========Target==========
+2025-10-02 14:59:15,255 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 14:59:15,255 - INFO - Initializing driver for Chrome
+2025-10-02 14:59:16,016 - INFO - ==========Goals==========
+2025-10-02 14:59:16,016 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 14:59:16,018 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 14:59:16,019 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 14:59:16,019 - INFO - ========Strategies=======
+2025-10-02 14:59:16,019 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 14:59:16,019 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 14:59:16,019 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 14:59:16,025 - INFO - Opening target webpage
+2025-10-02 14:59:16,404 - INFO - Submitting prompt for evaluation
+2025-10-02 14:59:18,072 - INFO - Extracting response..
+2025-10-02 14:59:27,187 - INFO - Not opening again to keep current session
+2025-10-02 14:59:27,188 - INFO - Submitting prompt for evaluation
+2025-10-02 14:59:27,259 - INFO - Extracting response..
+2025-10-02 14:59:40,894 - INFO - Not opening again to keep current session
+2025-10-02 14:59:40,894 - INFO - Submitting prompt for evaluation
+2025-10-02 14:59:40,961 - INFO - Extracting response..
+2025-10-02 15:00:05,266 - INFO - ARES evaluation started.
+2025-10-02 15:00:05,267 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:00:05,267 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:00:05,267 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:00:05,317 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:00:05,317 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:00:05,338 - INFO - ==========Target==========
+2025-10-02 15:00:05,338 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:00:05,338 - INFO - Initializing driver for Chrome
+2025-10-02 15:00:05,955 - INFO - ==========Goals==========
+2025-10-02 15:00:05,956 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:00:05,957 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:00:05,958 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:00:05,958 - INFO - ========Strategies=======
+2025-10-02 15:00:05,958 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:00:05,958 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:00:05,958 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:00:05,963 - INFO - Opening target webpage
+2025-10-02 15:00:06,357 - INFO - Submitting prompt for evaluation
+2025-10-02 15:00:08,020 - INFO - Extracting response..
+2025-10-02 15:00:17,134 - INFO - Not opening again to keep current session
+2025-10-02 15:00:17,135 - INFO - Submitting prompt for evaluation
+2025-10-02 15:00:17,191 - INFO - Extracting response..
+2025-10-02 15:00:30,837 - INFO - Not opening again to keep current session
+2025-10-02 15:00:30,838 - INFO - Submitting prompt for evaluation
+2025-10-02 15:00:30,908 - INFO - Extracting response..
+2025-10-02 15:03:39,681 - INFO - ARES evaluation started.
+2025-10-02 15:03:39,682 - ERROR - 'red-teaming' parameter not found
+2025-10-02 15:03:39,682 - ERROR - Invalid configuration: 'red-teaming'.
+2025-10-02 15:04:20,602 - INFO - ARES evaluation started.
+2025-10-02 15:04:20,604 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:04:20,604 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:04:20,604 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:04:20,652 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:04:20,653 - ERROR - Invalid configuration: 'type'.
+2025-10-02 15:05:18,973 - INFO - ARES evaluation started.
+2025-10-02 15:05:18,975 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:05:18,975 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:05:18,975 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:05:19,024 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:05:19,024 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:05:19,045 - INFO - ==========Target==========
+2025-10-02 15:05:19,045 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:05:19,045 - INFO - Initializing driver for Chrome
+2025-10-02 15:05:19,798 - INFO - ==========Goals==========
+2025-10-02 15:05:19,798 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:05:19,800 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:05:19,801 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:05:19,801 - INFO - ========Strategies=======
+2025-10-02 15:05:19,801 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:05:19,801 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:05:19,801 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:05:19,806 - INFO - Opening target webpage
+2025-10-02 15:05:20,188 - INFO - Submitting prompt for evaluation
+2025-10-02 15:05:21,849 - INFO - Extracting response..
+2025-10-02 15:05:30,953 - INFO - Not opening again to keep current session
+2025-10-02 15:05:30,954 - INFO - Submitting prompt for evaluation
+2025-10-02 15:09:44,571 - INFO - ARES evaluation started.
+2025-10-02 15:09:44,572 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:09:44,572 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:09:44,572 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:09:44,621 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:09:44,622 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:09:44,644 - INFO - ==========Target==========
+2025-10-02 15:09:44,644 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:09:44,644 - INFO - Initializing driver for Chrome
+2025-10-02 15:09:45,355 - INFO - ==========Goals==========
+2025-10-02 15:09:45,356 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:09:45,358 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:09:45,358 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:09:45,358 - INFO - ========Strategies=======
+2025-10-02 15:09:45,359 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:09:45,359 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:09:45,359 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:09:45,364 - INFO - Opening target webpage
+2025-10-02 15:09:45,738 - INFO - Submitting prompt for evaluation
+2025-10-02 15:09:47,395 - INFO - Extracting response..
+2025-10-02 15:13:22,364 - INFO - ARES evaluation started.
+2025-10-02 15:13:22,366 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:13:22,366 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:13:22,366 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:13:22,415 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:13:22,416 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:13:22,435 - INFO - ==========Target==========
+2025-10-02 15:13:22,436 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:13:22,436 - INFO - Initializing driver for Chrome
+2025-10-02 15:13:23,117 - INFO - ==========Goals==========
+2025-10-02 15:13:23,117 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:13:23,119 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:13:23,119 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:13:23,119 - INFO - ========Strategies=======
+2025-10-02 15:13:23,120 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:13:23,120 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:13:23,120 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:13:23,125 - INFO - Opening target webpage
+2025-10-02 15:13:23,505 - INFO - Submitting prompt for evaluation
+2025-10-02 15:13:25,152 - INFO - Extracting response..
+2025-10-02 15:13:34,252 - INFO - Not opening again to keep current session
+2025-10-02 15:13:34,252 - INFO - Submitting prompt for evaluation
+2025-10-02 15:13:34,256 - ERROR - Cannot find text area!
+2025-10-02 15:13:34,257 - ERROR - Cannot find text area!
+2025-10-02 15:14:19,552 - INFO - ARES evaluation started.
+2025-10-02 15:14:19,553 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:14:19,553 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:14:19,553 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:14:19,602 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:14:19,602 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:14:19,622 - INFO - ==========Target==========
+2025-10-02 15:14:19,622 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:14:19,622 - INFO - Initializing driver for Chrome
+2025-10-02 15:14:20,357 - INFO - ==========Goals==========
+2025-10-02 15:14:20,357 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:14:20,359 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:14:20,359 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:14:20,359 - INFO - ========Strategies=======
+2025-10-02 15:14:20,359 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:14:20,359 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:14:20,359 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:14:20,365 - INFO - Opening target webpage
+2025-10-02 15:14:20,752 - INFO - Submitting prompt for evaluation
+2025-10-02 15:14:22,416 - INFO - Extracting response..
+2025-10-02 15:14:31,533 - INFO - Not opening again to keep current session
+2025-10-02 15:14:31,534 - INFO - Submitting prompt for evaluation
+2025-10-02 15:14:31,536 - ERROR - Cannot find text area!
+2025-10-02 15:14:31,536 - ERROR - Cannot find text area!
+2025-10-02 15:16:34,790 - INFO - ARES evaluation started.
+2025-10-02 15:16:34,792 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:16:34,792 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:16:34,792 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:16:34,841 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:16:34,841 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:16:34,861 - INFO - ==========Target==========
+2025-10-02 15:16:34,862 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:16:34,862 - INFO - Initializing driver for Chrome
+2025-10-02 15:16:35,621 - INFO - ==========Goals==========
+2025-10-02 15:16:35,621 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:16:35,623 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:16:35,623 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:16:35,623 - INFO - ========Strategies=======
+2025-10-02 15:16:35,623 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:16:35,623 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:16:35,623 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:16:35,628 - INFO - Opening target webpage
+2025-10-02 15:16:36,014 - INFO - Submitting prompt for evaluation
+2025-10-02 15:16:37,671 - INFO - Extracting response..
+2025-10-02 15:17:45,493 - INFO - ARES evaluation started.
+2025-10-02 15:17:45,495 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:17:45,495 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:17:45,495 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:17:45,543 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:17:45,543 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:17:45,563 - INFO - ==========Target==========
+2025-10-02 15:17:45,564 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:17:45,564 - INFO - Initializing driver for Chrome
+2025-10-02 15:17:46,325 - INFO - ==========Goals==========
+2025-10-02 15:17:46,325 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:17:46,327 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:17:46,327 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:17:46,327 - INFO - ========Strategies=======
+2025-10-02 15:17:46,327 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:17:46,327 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:17:46,327 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:17:46,332 - INFO - Opening target webpage
+2025-10-02 15:17:46,722 - INFO - Submitting prompt for evaluation
+2025-10-02 15:17:48,389 - INFO - Extracting response..
+2025-10-02 15:17:57,500 - INFO - Not opening again to keep current session
+2025-10-02 15:17:57,500 - INFO - Submitting prompt for evaluation
+2025-10-02 15:17:57,557 - INFO - Extracting response..
+2025-10-02 15:18:11,200 - INFO - Not opening again to keep current session
+2025-10-02 15:18:11,200 - INFO - Submitting prompt for evaluation
+2025-10-02 15:18:11,271 - INFO - Extracting response..
+2025-10-02 15:18:29,490 - INFO - Not opening again to keep current session
+2025-10-02 15:18:29,490 - INFO - Submitting prompt for evaluation
+2025-10-02 15:18:29,561 - INFO - Extracting response..
+2025-10-02 15:22:39,941 - INFO - ARES evaluation started.
+2025-10-02 15:22:39,943 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:22:39,943 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:22:39,943 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:22:39,992 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:22:39,992 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:22:40,016 - INFO - ==========Target==========
+2025-10-02 15:22:40,016 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:22:40,016 - INFO - Initializing driver for Chrome
+2025-10-02 15:22:40,778 - INFO - ==========Goals==========
+2025-10-02 15:22:40,778 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:22:40,780 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:22:40,781 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:22:40,781 - INFO - ========Strategies=======
+2025-10-02 15:22:40,781 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:22:40,781 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:22:40,781 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:22:40,786 - INFO - Opening target webpage
+2025-10-02 15:22:41,167 - INFO - Submitting prompt for evaluation
+2025-10-02 15:22:42,832 - INFO - Extracting response..
+2025-10-02 15:22:51,923 - INFO - Not opening again to keep current session
+2025-10-02 15:22:51,924 - INFO - Submitting prompt for evaluation
+2025-10-02 15:22:51,981 - INFO - Extracting response..
+2025-10-02 15:23:45,913 - INFO - ARES evaluation started.
+2025-10-02 15:23:45,915 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:23:45,915 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:23:45,915 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:23:45,966 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:23:45,966 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:23:45,988 - INFO - ==========Target==========
+2025-10-02 15:23:45,989 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:23:45,989 - INFO - Initializing driver for Chrome
+2025-10-02 15:23:46,760 - INFO - ==========Goals==========
+2025-10-02 15:23:46,760 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:23:46,762 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:23:46,763 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:23:46,763 - INFO - ========Strategies=======
+2025-10-02 15:23:46,763 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:23:46,763 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:23:46,763 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:23:46,769 - INFO - Opening target webpage
+2025-10-02 15:23:47,154 - INFO - Submitting prompt for evaluation
+2025-10-02 15:23:48,815 - INFO - Extracting response..
+2025-10-02 15:28:37,520 - INFO - ARES evaluation started.
+2025-10-02 15:28:37,521 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:28:37,522 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:28:37,522 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:28:37,571 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:28:37,571 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:28:37,590 - INFO - ==========Target==========
+2025-10-02 15:28:37,590 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:28:37,591 - INFO - Initializing driver for Chrome
+2025-10-02 15:28:38,330 - INFO - ==========Goals==========
+2025-10-02 15:28:38,331 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:28:38,333 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:28:38,333 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:28:38,333 - INFO - ========Strategies=======
+2025-10-02 15:28:38,333 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:28:38,334 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:28:38,334 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:28:38,339 - INFO - Opening target webpage
+2025-10-02 15:28:38,740 - INFO - Submitting prompt for evaluation
+2025-10-02 15:28:40,399 - INFO - Extracting response..
+2025-10-02 15:28:49,514 - INFO - Not opening again to keep current session
+2025-10-02 15:28:49,516 - INFO - Submitting prompt for evaluation
+2025-10-02 15:28:49,578 - INFO - Extracting response..
+2025-10-02 15:30:22,876 - INFO - ARES evaluation started.
+2025-10-02 15:30:22,877 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:30:22,877 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:30:22,877 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:30:22,926 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:30:22,926 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:30:22,946 - INFO - ==========Target==========
+2025-10-02 15:30:22,946 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:30:22,946 - INFO - Initializing driver for Chrome
+2025-10-02 15:30:23,741 - INFO - ==========Goals==========
+2025-10-02 15:30:23,741 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:30:23,742 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:30:23,743 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:30:23,743 - INFO - ========Strategies=======
+2025-10-02 15:30:23,743 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:30:23,743 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:30:23,743 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:30:23,748 - INFO - Opening target webpage
+2025-10-02 15:30:24,142 - INFO - Submitting prompt for evaluation
+2025-10-02 15:30:25,789 - INFO - Extracting response..
+2025-10-02 15:39:23,251 - INFO - ARES evaluation started.
+2025-10-02 15:39:23,253 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 15:39:23,253 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 15:39:23,253 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 15:39:23,301 - INFO - External connectors found in ares plugins: []:
+2025-10-02 15:39:23,301 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 15:39:23,322 - INFO - ==========Target==========
+2025-10-02 15:39:23,322 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 15:39:23,322 - INFO - Initializing driver for Chrome
+2025-10-02 15:39:24,084 - INFO - ==========Goals==========
+2025-10-02 15:39:24,084 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 15:39:24,086 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 15:39:24,086 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 15:39:24,087 - INFO - ========Strategies=======
+2025-10-02 15:39:24,087 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 15:39:24,087 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 15:39:24,087 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 15:39:24,092 - INFO - Opening target webpage
+2025-10-02 15:39:24,481 - INFO - Submitting prompt for evaluation
+2025-10-02 15:39:26,142 - INFO - Extracting response..
+2025-10-02 16:10:41,203 - INFO - ARES evaluation started.
+2025-10-02 16:10:41,204 - INFO - Checking for presence of: ares.goals.generic_attack_goal.GenericAttackGoal
+2025-10-02 16:10:41,204 - INFO - Checking for presence of: ares.evals.keyword_eval.KeywordEval
+2025-10-02 16:10:41,204 - INFO - Checking for presence of: ares.strategies.direct_requests.DirectRequests
+2025-10-02 16:10:41,258 - INFO - External connectors found in ares plugins: []:
+2025-10-02 16:10:41,259 - INFO - Checking for presence of: ares_icarus_connector.connector.ICARUSConnector
+2025-10-02 16:10:41,282 - INFO - ==========Target==========
+2025-10-02 16:10:41,282 - INFO - Connector initialized with config: {'name': ICARUS/ares_icarus_connector.connector.ICARUSConnector}
+2025-10-02 16:10:41,282 - INFO - Initializing driver for Chrome
+2025-10-02 16:10:44,278 - INFO - ==========Goals==========
+2025-10-02 16:10:44,279 - INFO - AttackGoal initialized with config: {'type': ares.goals.generic_attack_goal.GenericAttackGoal}
+2025-10-02 16:10:44,281 - INFO - Successfully read 5 goal(s) from file!
+2025-10-02 16:10:44,282 - INFO - Goals saved to assets/attack_goals.json
+2025-10-02 16:10:44,282 - INFO - ========Strategies=======
+2025-10-02 16:10:44,282 - INFO - Loading goals from source: assets/attack_goals.json
+2025-10-02 16:10:44,282 - INFO - AttackStrategy initialized with config: {ares.strategies.direct_requests.DirectRequests}
+2025-10-02 16:10:44,282 - INFO - Attacking target connector ICARUS with 5 prompt(s)...
+2025-10-02 16:10:44,287 - INFO - Opening target webpage
+2025-10-02 16:10:44,668 - INFO - Submitting prompt for evaluation
+2025-10-02 16:10:46,489 - INFO - Extracting response..

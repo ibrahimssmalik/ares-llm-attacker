@@ -1,0 +1,29 @@
+# Target
+target:
+  icarus_connector:
+
+# Goal
+goal:
+  type: custom
+  module: ares_llm_attacker.assets.goals.attack_goal
+  class: LLMJailbreakGoal
+
+# Strategy
+strategy:
+  type: custom
+  module: ares_llm_attacker.assets.strategies.strategy
+  class: LLMAttackerStrategy
+
+# Evaluation
+evaluation:
+  type: custom
+  module: ares_llm_attacker.assets.evals.evaluator
+  class: AdaptiveEvaluator
+
+red-teaming:
+  prompts: ./assets/seeds.csv
+
+output:
+  dir: results/llm-attacker
+  save_responses: true
+  save_prompts: true
