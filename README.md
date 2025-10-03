@@ -10,7 +10,6 @@ This plugin implements an LLM-vs-LLM approach to automated jailbreaking:
 
 1. **Attacker LLM** generates creative jailbreak prompts
 2. **Target (ICARUS)** responds to the prompts
-3. **Evaluator** analyzes success and provides feedback
 4. **Adaptive Learning** adjusts strategy based on what works
 
 ### Attack Goals
@@ -36,47 +35,10 @@ pip install -e .
 
 ```bash
 # Make sure ICARUS is running
-cd icarus && docker compose up
+python -m streamlit run main.py
 
 # Run the attack
 ares evaluate plugins/ares-llm-attacker/src/ares_llm_attacker/assets/config.yaml
-```
-
-### Method 2: Python Script
-
-```python
-from ares.redteam import RedTeamer
-from ares.utils import parse_config, parse_connectors
-from ares_llm_attacker import LLMAttackerStrategy, AdaptiveEvaluator
-
-# Load configuration
-config = parse_config("plugins/ares-llm-attacker/src/ares_llm_attacker/assets/config.yaml")
-connectors = parse_connectors(config)
-
-# Initialize attacker
-attacker = LLMAttackerStrategy(model="mistral-nemo", temperature=0.8)
-evaluator = AdaptiveEvaluator()
-
-# Run attack
-rt = RedTeamer(config, connectors["connectors"])
-rt.target()
-
-for attempt in range(20):
-    # Generate jailbreak prompt
-    prompt, technique = attacker.generate_prompt()
-    
-    # Attack ICARUS
-    response = rt.target_connector.generate(prompt)
-    
-    # Evaluate success
-    result = evaluator.evaluate(prompt, response.response)
-    
-    # Update strategy
-    attacker.update_score(technique, result['success_level'])
-    
-    if result['found_password']:
-        print(f"Success! Password: {result['password']}")
-        break
 ```
 
 ## Attack Techniques
