@@ -21,7 +21,16 @@ evaluation:
   class: AdaptiveEvaluator
 
 red-teaming:
+  intent: my_multi_turn_intent
   prompts: ./assets/seeds.csv
+
+my_multi_turn_intent:
+  strategy:
+    multi-turn:
+      max_turns: 10
+      input_path: assets/attack_goals.json
+      type: strategies.strategy
+      output_path: results/crescendo.json
 
 output:
   dir: results/llm-attacker
