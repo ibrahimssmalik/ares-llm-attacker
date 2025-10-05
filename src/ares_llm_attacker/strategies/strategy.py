@@ -38,7 +38,6 @@ class LLMAttackerStrategy(DirectRequests):
     """
     Multi-turn LLM-to-LLM attack strategy for ICARUS agent.
     """
-    
     def __init__(self, config: Dict[str, Any], target_connector: Optional[Connector] = None):
         """
         Initialize ICARUS LLM attack strategy.
