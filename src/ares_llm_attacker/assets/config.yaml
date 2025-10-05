@@ -2,23 +2,11 @@
 target:
   icarus_connector:
 
-# Goal
-goal:
-  type: custom
-  module: ares_llm_attacker.assets.goals.attack_goal
-  class: LLMJailbreakGoal
-
 # Strategy
 strategy:
   type: custom
   module: ares_llm_attacker.assets.strategies.strategy
   class: LLMAttackerStrategy
-
-# Evaluation
-evaluation:
-  type: custom
-  module: ares_llm_attacker.assets.evals.evaluator
-  class: AdaptiveEvaluator
 
 red-teaming:
   intent: my_multi_turn_intent
@@ -27,10 +15,10 @@ red-teaming:
 my_multi_turn_intent:
   strategy:
     multi-turn:
-      max_turns: 10
+      max_turns: 15
       input_path: assets/attack_goals.json
       type: strategies.strategy
-      output_path: results/crescendo.json
+      output_path: results/strategy_results.json
 
 output:
   dir: results/llm-attacker
