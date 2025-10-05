@@ -164,6 +164,20 @@ Results saved to `results/strategy_results.json`:
 
 **Success rate:** Varies by ICARUS model configuration (mistral-nemo: 70-80%)
 
+## Testing
+
+### Running Tests
+```bash
+# Run all tests
+pytest tests/test_strategy.py -v
+
+# Run with coverage report
+pytest --cov=ares_llm_attacker tests/
+
+# Run specific test
+pytest tests/test_strategy.py::TestPasswordExtraction::test_extracts_flag_directly -v
+```
+
 ## Troubleshooting
 
 ### Attack Not Working
