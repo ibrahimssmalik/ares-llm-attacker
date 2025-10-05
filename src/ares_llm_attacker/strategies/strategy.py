@@ -173,6 +173,7 @@ class LLMAttackerStrategy(DirectRequests):
                 "prompt": attack_prompt,
                 "response": icarus_response,
                 "extracted_password": self.extracted_password,
+                "label": 1
             }
             results.append(turn_data)
             
