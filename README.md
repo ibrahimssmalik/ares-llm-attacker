@@ -70,7 +70,7 @@ cd path/to/icarus
 python -m streamlit run main.py
 
 # 2. Run the attack
-cd ares-llm-attacker
+cd ares-llm-attacker/src/ares_llm_attacker
 ares evaluate src/ares_llm_attacker/assets/config.yaml
 ```
 
