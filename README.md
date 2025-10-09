@@ -52,7 +52,7 @@ ares-llm-attacker/
 │       │   └── connectors.yaml
 │       └── strategies/
 │           ├── __init__.py
-│           └── multi_agent_strategy.py
+│           └── strategy.py
 └── tests/
     ├── __init__.py
     └── test_strategy.py
