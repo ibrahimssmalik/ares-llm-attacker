@@ -81,7 +81,3 @@ class TestConstants:
         """Verify default max turns"""
         from ares_llm_attacker.strategies.strategy import MAX_TURNS
         assert MAX_TURNS == 15
-
-
-if __name__ == "__main__":
-    pytest.main([__file__, "-v"])
