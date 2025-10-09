@@ -44,6 +44,7 @@ ares-llm-attacker/
 ├── README.md
 ├── requirements.txt
 ├── setup.py
+├── pyproject.toml
 ├── src/
 │   └── ares_llm_attacker/
 │       ├── __init__.py
@@ -54,7 +55,6 @@ ares-llm-attacker/
 │           ├── __init__.py
 │           └── strategy.py
 └── tests/
-    ├── __init__.py
     └── test_strategy.py
 ```
 
