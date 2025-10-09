@@ -11,6 +11,7 @@ from typing import Any, Dict, List, Optional, Tuple
 from ares.strategies.direct_requests import DirectRequests
 from ares.connectors.connector import Connector
 from langchain_ollama import ChatOllama
+from ares.utils import Plugin
 
 logger = logging.getLogger(__name__)
 
@@ -65,6 +66,10 @@ MAX_TURNS = 15
 PLANNER_MODEL = "granite3.2"
 EVALUATOR_MODEL = "granite3.2"
 ATTACKER_MODEL = "granite3.2"
+def _build_connector(config: dict[str, Any]) -> Connector:
+    helper_class: type[Connector] = Plugin.load(config["type"], required=["generate", "batch_generate"])
+
+    return helper_class(config)
 
 class LLMAttackerStrategy(DirectRequests):
     """
@@ -83,18 +88,24 @@ class LLMAttackerStrategy(DirectRequests):
         self.attacker_model = config.get("attacker_model", ATTACKER_MODEL)
         
         # Initialize agent LLMs
-        self.planner_llm = ChatOllama(
-            model=self.planner_model,
-            temperature=0.0
-        )
-        self.evaluator_llm = ChatOllama(
-            model=self.evaluator_model,
-            temperature=0.0
-        )
-        self.attacker_llm = ChatOllama(
-            model=self.attacker_model,
-            temperature=0.5
-        )
+        # self.planner_llm = ChatOllama(
+        #     model=self.planner_model,
+        #     temperature=0.0
+        # )
+        # self.evaluator_llm = ChatOllama(
+        #     model=self.evaluator_model,
+        #     temperature=0.0
+        # )
+        # self.attacker_llm = ChatOllama(
+        #     model=self.attacker_model,
+        #     temperature=0.5
+        # )
+        self.planner_llm = _build_connector(config['planner_model'])
+
+        self.evaluator_llm = _build_connector(config['evaluator_model'])
+
+        self.attacker_llm = _build_connector(config['attacker_model'])
+
         
         # Attack state
         self.goal = HARDCODED_GOAL
@@ -169,7 +180,7 @@ class LLMAttackerStrategy(DirectRequests):
         logger.info("Planner agent generating attack steps...")
         
         try:
-            plan_response = self.planner_llm.invoke(PLANNER_PROMPT).content
+            plan_response = self.planner_llm.generate(PLANNER_PROMPT).response
             
             # Try to parse JSON - Clean up potential markdown code blocks
             plan_text = plan_response.strip()
@@ -314,8 +325,8 @@ class LLMAttackerStrategy(DirectRequests):
             ]
         
         # Generate prompt
-        response = self.attacker_llm.invoke(messages)
-        generated_prompt = response.content.strip()
+        response = self.attacker_llm.generate(messages)
+        generated_prompt = response.response.strip()
         
         # Clean up
         if generated_prompt.startswith('"') and generated_prompt.endswith('"'):
@@ -333,7 +344,7 @@ class LLMAttackerStrategy(DirectRequests):
         )
         
         try:
-            eval_response = self.evaluator_llm.invoke(eval_prompt).content.strip()
+            eval_response = self.evaluator_llm.generate(eval_prompt).response.strip()
             
             # True/False
             if "true" in eval_response.lower():

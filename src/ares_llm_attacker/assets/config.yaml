@@ -19,6 +19,24 @@ my_multi_turn_intent:
       input_path: assets/attack_goals.json
       type: strategies.strategy
       output_path: results/strategy_results.json
+      evaluator_model:
+        type: ares_litellm.LiteLLMConnector
+        name: "granite-on-ollama"
+        endpoint-type: "ollama"
+        model: "ollama/granite3.2"
+        temperature: 0
+      planner_model:
+        type: ares_litellm.LiteLLMConnector
+        name: "granite-on-ollama"
+        endpoint-type: "ollama"
+        model: "ollama/granite3.2"
+        temperature: 0
+      attacker_model:
+        type: ares_litellm.LiteLLMConnector
+        name: "granite-on-ollama"
+        endpoint-type: "ollama"
+        model: "ollama/granite3.2"
+        temperature: 0
 
 output:
   dir: results/llm-attacker
