@@ -50,7 +50,8 @@ ares-llm-attacker/
 │       ├── __init__.py
 │       ├── assets/
 │       │   ├── config.yaml
-│       │   └── connectors.yaml
+│       │   ├── connectors.yaml
+│       │   └── agent_config.yaml
 │       └── strategies/
 │           ├── __init__.py
 │           └── strategy.py
@@ -121,7 +122,7 @@ max_turns: 20 # Allow more attempts per step
 Edit connector configs to use different models (Llama, Mistral, etc.)
 
 **Modify prompts:**
-Edit `PLANNER_PROMPT`, `EVALUATOR_PROMPT_TEMPLATE`, or `ATTACKER_SYSTEM_PROMPT` in `strategy.py`
+Edit `PLANNER_PROMPT`, `EVALUATOR_PROMPT_TEMPLATE`, or `ATTACKER_SYSTEM_PROMPT` in `agent_config.yaml`
 
 ## Results & Evaluation
 
