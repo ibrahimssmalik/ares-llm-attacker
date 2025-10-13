@@ -7,11 +7,10 @@ import logging
 import re
 import json
 import yaml
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional
 
 from ares.strategies.direct_requests import DirectRequests
 from ares.connectors.connector import Connector
-from langchain_ollama import ChatOllama
 from ares.utils import Plugin
 
 logger = logging.getLogger(__name__)
@@ -48,23 +47,24 @@ class LLMAttackerStrategy(DirectRequests):
         # Attack configuration from external file
         self.max_turns = self.agent_config['settings']['max_turns']
         self.goal = self.agent_config['settings']['hardcoded_goal']
-        
+        self.memory_length = self.agent_config['settings']['memory_length']
+
         # Load prompts from external file
         self.planner_prompt = self.agent_config['prompts']['planner']
         self.evaluator_prompt_template = self.agent_config['prompts']['evaluator']
         self.attacker_prompt = self.agent_config['prompts']['attacker']
-        self.memory_retrival_prompt = self.agent_config['prompts'].get('memory_retrival', "You are an expert at selecting relevant messagges in a past conversations, according to a topic or step.")
-        self.memory_retrival_length = self.agent_config['settings'].get('memory_retrival_length', 5)
-        
+        self.memory_prompt = self.agent_config['prompts']['memory']
+
         # Initialize agents with external model configs
         self.planner_model = _build_connector(self.agent_config['models']['planner'])
         self.evaluator_model = _build_connector(self.agent_config['models']['evaluator'])
         self.attacker_model = _build_connector(self.agent_config['models']['attacker'])
+        self.memory_model = _build_connector(self.agent_config['models']['memory'])
 
         self.attack_steps: List[Dict[str, Any]] = []
         self.current_step_index: int = 0
         self.conversation_memory: List[Dict[str, Any]] = [] # stores msg
-        self.memory_retrival: List[Dict[str, Any]] = [] # stores most relevant past exchanges
+        self.memory_retrieval: List[Dict[str, Any]] = [] # stores most relevant past exchanges
         self.extracted_password: Optional[str] = None
         
         logger.info(
@@ -218,7 +218,9 @@ class LLMAttackerStrategy(DirectRequests):
                 "role": "assistant",
                 "content": icarus_response.response
             })
-            self._update_memory_retrival(self.conversation_memory[-2:]) # update with last exchange
+            
+            self._update_memory_retrieval()
+            
             # Store turn data
             turn_data = {
                 "turn": turn,
@@ -262,7 +264,7 @@ class LLMAttackerStrategy(DirectRequests):
         else:
             messages = [
                 {"role": "system", "content": self.attacker_prompt}
-            ] + self.memory_retrival + [
+            ] + self.memory_retrieval + [
                 {"role": "user", "content": f"{step_context}\n\nGenerate only your next attack prompt NOW."}
             ]
         
@@ -341,16 +343,44 @@ class LLMAttackerStrategy(DirectRequests):
         
         return None
 
-    def _update_memory_retrival(self, last_messages: list) -> None:
+    def _update_memory_retrieval(self) -> None:
         """
-        Update memory retrival with most relevant past exchanges.
+        Update memory retrieval with most relevant past exchanges.
         """
-        # Placeholder for future implementation
-        prompt = f"{self.memory_retrival_prompt}\nThe current step is {self.attack_steps[self.current_step_index]}\n\Conversation messages:\n{self.conversation_memory}\n\nNew messages:\n{last_messages}\n\nReturn the {self.memory_retrival_length} most relevant exchanges related to the topic. Return the indeexes of the selected exchanges only, in a python list format."
-        indices_response = self.planner_model.generate(prompt).response
-        # cast to a list of integers
-        indices_response = re.sub(r'[^0-9,]', '', indices_response)
-        indices_response = [int(i) for i in indices_response.split(',') if i.isdigit()]
-        print('-'*33 + f"Memory retrival indices response: {indices_response}")
-        self.memory_retrival = [self.conversation_memory[i] for i in indices_response if i < len(self.conversation_memory)]
-        print('-'*33 + f"Updated memory retrival: {self.memory_retrival}")
+        # When conversation memory is short, use all
+        if len(self.conversation_memory) <= self.memory_length*2:
+            self.memory_retrieval = self.conversation_memory.copy()
+            logger.debug("Conversation memory is short, using all messages for retrieval.")
+            return
+        
+        current_step = self.attack_steps[self.current_step_index]['goal']
+        num_exchanges = len(self.conversation_memory)//2
+
+        # Build prompt for memory model
+        prompt = f"""{self.memory_prompt}
+                    Current attack step: {current_step}
+                    Total past exchanges: {num_exchanges}
+                    Select the {self.memory_length} most relevant exchanges related to this step.
+                    Return ONLY valid Python list of exchange numbers (0 to {num_exchanges - 1}).
+                    Example format: [0, 3, 7]
+                    Your response (list only):"""
+
+        response = self.memory_model.generate(prompt).response.strip()
+        logger.debug(f"Memory model raw response: {response}")
+
+        # Try to extract [x, y, z] pattern
+        list_match = re.search(r'\[([0-9,\s]+)\]', response)
+
+        indices_str = list_match.group(1) if list_match else "" # string of extracted numbers
+        indices = [int(i.strip()) for i in indices_str.split(',') if i.strip().isdigit()] # convert to int list
+        indices = [i for i in indices if 0 <= i < num_exchanges][:self.memory_length] # limit to memory_length
+
+        # Convert exchange indices to message indices
+        message_indices = []
+        for ind in indices:
+            message_indices.extend([ind*2, ind*2 + 1]) # user and assistant messages
+
+        # Update memory retrieval list that is passed to Attacker
+        self.memory_retrieval = [self.conversation_memory[i] for i in message_indices]
+        
+        print('-' * 33 + f"Memory retrieval selected exchanges: {indices}")
