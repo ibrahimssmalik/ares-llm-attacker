@@ -263,7 +263,7 @@ class LLMAttackerStrategy(DirectRequests):
             messages = [
                 {"role": "system", "content": self.attacker_prompt},
             
-                {"role": "user", "content": f"{self.memory_retrieval}\n\nPatience:{self.patience}/5\n\nGenerate only your next attack prompt NOW."}
+                {"role": "user", "content": f"{self.memory_retrieval}\n\nPatience:{self.patience}\n\nGenerate only your next attack prompt NOW."}
             ]
         
         # Generate prompt
