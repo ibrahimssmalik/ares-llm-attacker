@@ -36,6 +36,8 @@ class LLMAttackerStrategy(DirectRequests):
         # Load external agent configuration
         agent_config_path = config.get("agent_config_path", "agent_config.yaml")
 
+        self.window_size = config.get("window_size", 5)
+
         try:
             with open(agent_config_path, 'r') as f:
                 self.agent_config = yaml.safe_load(f)
@@ -51,6 +53,7 @@ class LLMAttackerStrategy(DirectRequests):
         self.evaluator_prompt_template = self.agent_config['prompts']['evaluator']
         self.attacker_prompt = self.agent_config['prompts']['attacker']
         self.memory_prompt = self.agent_config['prompts']['memory']
+        self.moving_memory_prompt = self.agent_config['prompts']['moving_memory']
 
         # Initialize agents with external model configs
         self.planner_model = _build_connector(self.agent_config['models']['planner'])
@@ -160,6 +163,7 @@ class LLMAttackerStrategy(DirectRequests):
     def _reset_attack_state(self) -> None:
         """Reset internal state for a new attack run."""
         self.conversation_memory = []
+        self.memory_retrieval = ""
         self.extracted_password = None
         self.current_step_index = 0
         
@@ -212,8 +216,12 @@ class LLMAttackerStrategy(DirectRequests):
                 "role": "assistant",
                 "content": icarus_response.response
             })
-            
-            self._update_memory_state()
+            if self._reset_detection():
+                self._reset_attack_state()
+                logger.info("Reset triggered by reset detection agent.")
+                print('-' * 33 + "RESET TRIGGERED BY DETECTION AGENT.")
+                continue
+            self._update_moving_memory()
 
             # Evaluate step completion using Evaluator agent
             step_complete = self._evaluate_step_completion(current_step, self.memory_retrieval)
@@ -252,7 +260,7 @@ class LLMAttackerStrategy(DirectRequests):
         """
         # Build context with current step goal
         step_context = f"Your current objective: {current_step['goal']}"
-        
+        self.attacker_prompt = self.attacker_prompt.format(goal=current_step['goal'])
         # Build messages for Attacker LLM
         if turn == 0:
             messages = [
@@ -261,9 +269,9 @@ class LLMAttackerStrategy(DirectRequests):
             ]
         else:
             messages = [
-                {"role": "system", "content": self.attacker_prompt},
+                {"role": "system", "content": self.attacker_prompt + f"Old Summary: {self.memory_retrieval}\nRecent Messages: {self.conversation_memory[-self.window_size:]}\n\nPatience:{self.patience}"}
             
-                {"role": "user", "content": f"{self.memory_retrieval}\n\nPatience:{self.patience}\n\nGenerate only your next attack prompt NOW."}
+                # {"role": "user", "content": f"Old Summary: {self.memory_retrieval}\nRecent Messages: {self.conversation_memory[-self.window_size:]}\n\nPatience:{self.patience}"}
             ]
         
         # Generate prompt
@@ -294,7 +302,7 @@ class LLMAttackerStrategy(DirectRequests):
             
             # True/False
             if "true" in eval_response.lower():
-                self._update_memory_state()
+                self._update_moving_memory()
                 self.patience = 0 # monitor evaluator performance
                 return True
             else:
@@ -359,3 +367,60 @@ class LLMAttackerStrategy(DirectRequests):
         self.memory_retrieval = self.memory_model.generate(memory_prompt).response.strip()
 
         print('-' * 33 + f"MEMORY: {self.memory_retrieval}")
+
+
+    def _update_moving_memory(self) -> None:
+        """
+        Update internal memory, maintaining a moving window of recent exchanges.
+        """
+        window_size = self.window_size  # Number of exchanges to keep
+        if len(self.conversation_memory) < window_size + 2:
+            return  # Not enough messages to update moving memory
+        current_step = self.attack_steps[self.current_step_index]['goal']
+        s = ""
+        state = ""
+        # for tune_msg in ['summary', 'what failed and what worked', 'next candidate attack strategy']:
+        moving_memory_prompt = self.moving_memory_prompt.format(
+            current_step=current_step,
+            moving_memory=self.memory_retrieval,
+            messages=self.conversation_memory[-window_size-2:-window_size],
+            # tune_msg=tune_msg
+        )
+
+        
+        s = self.memory_model.generate(moving_memory_prompt).response.strip() + "\n"
+        if s == "RESET":
+            self._reset_attack_state()
+            logger.info("Reset triggered.")
+            print('-' * 33 + "RESET TRIGGERED: Attack memory reset.")
+            return
+        
+        # logger.info(f'Moving memory {tune_msg} updated.\n{s}')
+        # print('-' * 33 + f"TUNED MOVING MEMORY ({tune_msg}): {s}")
+        self.memory_retrieval = s.strip()
+        print('-' * 33 + f"MOVING MEMORY: {self.memory_retrieval}")
+
+
+    def _reset_detection(self) -> bool:
+        """
+        Use reset detection agent to determine if attack should be reset.
+        """
+        if len(self.conversation_memory) < 4:
+            return False  # Not enough messages to evaluate
+        
+        current_step = self.attack_steps[self.current_step_index]['goal']
+        
+        reset_prompt = self.agent_config['prompts']['reset_detection'].format(
+            current_step=current_step,
+            messages=self.conversation_memory
+        )
+        
+        try:
+            reset_response = self.memory_model.generate(reset_prompt).response.strip()
+            if reset_response == "RESET":
+                logger.info("Reset detected by reset detection agent.")
+                return True
+            return False
+        except Exception as e:
+            logger.warning(f"Reset detection failed: {e}")
+            return False
