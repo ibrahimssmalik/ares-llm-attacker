@@ -52,8 +52,11 @@ class LLMAttackerStrategy(DirectRequests):
         self.planner_prompt = self.agent_config['prompts']['planner']
         self.evaluator_prompt_template = self.agent_config['prompts']['evaluator']
         self.attacker_prompt = self.agent_config['prompts']['attacker']
+        self.attacker_principles_prompt = self.agent_config['prompts']['attacker_principles']
+        self.attacker_refinement_prompt = self.agent_config['prompts']['attacker_refinement']
         self.memory_prompt = self.agent_config['prompts']['memory']
         self.moving_memory_prompt = self.agent_config['prompts']['moving_memory']
+        self.strategies = self.agent_config['prompts']['strategies']
 
         # Initialize agents with external model configs
         self.planner_model = _build_connector(self.agent_config['models']['planner'])
@@ -65,7 +68,7 @@ class LLMAttackerStrategy(DirectRequests):
         self.attack_steps: List[Dict[str, Any]] = []
         self.current_step_index: int = 0
         self.conversation_memory: List[Dict[str, Any]] = [] # stores msg
-        self.memory_retrieval: List[Dict[str, Any]] = [] # stores most relevant past exchanges
+        self.memory_retrieval: str = ""
         self.extracted_password: Optional[str] = None
         
         logger.info(
@@ -224,7 +227,7 @@ class LLMAttackerStrategy(DirectRequests):
             self._update_moving_memory()
 
             # Evaluate step completion using Evaluator agent
-            step_complete = self._evaluate_step_completion(current_step, self.memory_retrieval)
+            step_complete = self._evaluate_step_completion(current_step)
             print('-'*33 + f"Evaluator result: {step_complete}")
 
             # Store turn data
@@ -260,23 +263,27 @@ class LLMAttackerStrategy(DirectRequests):
         """
         # Build context with current step goal
         step_context = f"Your current objective: {current_step['goal']}"
-        self.attacker_prompt = self.attacker_prompt.format(goal=current_step['goal'])
+        
         # Build messages for Attacker LLM
-        if turn == 0:
-            messages = [
-                {"role": "system", "content": self.attacker_prompt},
-                {"role": "user", "content": f"{step_context}\n\nGenerate your first attack prompt."}
-            ]
-        else:
-            messages = [
-                {"role": "system", "content": self.attacker_prompt + f"Old Summary: {self.memory_retrieval}\nRecent Messages: {self.conversation_memory[-self.window_size:]}\n\nPatience:{self.patience}"}
-            
-                # {"role": "user", "content": f"Old Summary: {self.memory_retrieval}\nRecent Messages: {self.conversation_memory[-self.window_size:]}\n\nPatience:{self.patience}"}
-            ]
+        self.attacker_principles_f = self.attacker_principles_prompt.format(memory_retrieval=self.memory_retrieval,
+                                                               step_goal=step_context,
+                                                               recent_messages=self.conversation_memory[-self.window_size:],
+                                                               patience=self.patience,
+                                                               strategies = self.strategies)        
         
         # Generate prompt
-        response = self.attacker_model.generate(messages)
-        generated_prompt = response.response.strip()
+        strategy_principles = self.attacker_model.generate(self.attacker_principles_f)
+        generated_prompt = strategy_principles.response.strip()
+        print('-'*33 + f"Generated principles for attack: {generated_prompt}")
+
+        self.attacker_refinement_f = self.attacker_refinement_prompt.format(memory_retrieval=self.memory_retrieval,
+                                                               step_goal=step_context,
+                                                               recent_messages=self.conversation_memory[-self.window_size:],
+                                                               patience=self.patience,
+                                                               strategies = self.strategies,
+                                                               principles=generated_prompt)
+        generated_prompt = self.attacker_model.generate(self.attacker_refinement_f)
+        generated_prompt = generated_prompt.response.strip()
         
         # Clean up
         if generated_prompt.startswith('"') and generated_prompt.endswith('"'):
@@ -284,13 +291,13 @@ class LLMAttackerStrategy(DirectRequests):
         
         return generated_prompt
     
-    def _evaluate_step_completion(self, step: Dict[str, Any], response: str) -> bool:
+    def _evaluate_step_completion(self, step: Dict[str, Any]) -> bool:
         """
         Use Evaluator agent to check if step is complete.
         """
         eval_prompt = self.evaluator_prompt_template.format(
             step_goal=step['goal'],
-            response=response[:1000], # limit the context
+            response=self.conversation_memory[-self.window_size:][:1000], # limit the context
             memory =self.memory_retrieval[:1000]
         )
         
@@ -378,17 +385,18 @@ class LLMAttackerStrategy(DirectRequests):
             return  # Not enough messages to update moving memory
         current_step = self.attack_steps[self.current_step_index]['goal']
         s = ""
-        state = ""
+        
         # for tune_msg in ['summary', 'what failed and what worked', 'next candidate attack strategy']:
         moving_memory_prompt = self.moving_memory_prompt.format(
+            full_plan=self.attack_steps,
             current_step=current_step,
             moving_memory=self.memory_retrieval,
-            messages=self.conversation_memory[-window_size-2:-window_size],
+            messages=self.conversation_memory[-window_size*2:],
             # tune_msg=tune_msg
         )
 
         
-        s = self.memory_model.generate(moving_memory_prompt).response.strip() + "\n"
+        s = self.memory_model.generate(moving_memory_prompt).response.strip()
         if s == "RESET":
             self._reset_attack_state()
             logger.info("Reset triggered.")
@@ -405,14 +413,17 @@ class LLMAttackerStrategy(DirectRequests):
         """
         Use reset detection agent to determine if attack should be reset.
         """
-        if len(self.conversation_memory) < 4:
+        # return False  # Disable reset detection for now
+        if len(self.conversation_memory) < 6:
             return False  # Not enough messages to evaluate
         
         current_step = self.attack_steps[self.current_step_index]['goal']
         
         reset_prompt = self.agent_config['prompts']['reset_detection'].format(
             current_step=current_step,
-            messages=self.conversation_memory
+            full_plan=self.attack_steps,
+            messages=self.conversation_memory,
+            memory = self.memory_retrieval
         )
         
         try:
