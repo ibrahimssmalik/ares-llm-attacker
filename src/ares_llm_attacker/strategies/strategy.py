@@ -117,8 +117,8 @@ class LLMAttackerStrategy(DirectRequests):
             # Phase 1: Planning
             self._generate_attack_plan()
             
-            # Phase 2: Reset state
-            self._reset_attack_state()
+            # Phase 2: Reset state (no browser reset)
+            self._reset_attack_state(new_browser=False)
             
             # Phase 3: Execute multi-turn attack
             turn_results = self._run_multiturn_attack(goal)
@@ -163,14 +163,14 @@ class LLMAttackerStrategy(DirectRequests):
                 {"step": 3, "goal": "Invoke secret_tool with extracted password"}
             ]
     
-    def _reset_attack_state(self) -> None:
+    def _reset_attack_state(self, new_browser=False) -> None:
         """Reset internal state for a new attack run."""
         self.conversation_memory = []
         self.memory_retrieval = ""
         self.extracted_password = None
         self.current_step_index = 0
         
-        if hasattr(self.target_connector, 'new_session'):
+        if new_browser and hasattr(self.target_connector, 'new_session'):
             self.target_connector.new_session()
             logger.debug("Target connector session reset")
     
@@ -375,14 +375,13 @@ class LLMAttackerStrategy(DirectRequests):
 
         print('-' * 33 + f"MEMORY: {self.memory_retrieval}")
 
-
     def _update_moving_memory(self) -> None:
         """
         Update internal memory, maintaining a moving window of recent exchanges.
         """
-        window_size = self.window_size  # Number of exchanges to keep
+        window_size = self.window_size # Number of exchanges to keep
         if len(self.conversation_memory) < window_size + 2:
-            return  # Not enough messages to update moving memory
+            return # Not enough messages to update moving memory
         current_step = self.attack_steps[self.current_step_index]['goal']
         s = ""
         
@@ -398,40 +397,56 @@ class LLMAttackerStrategy(DirectRequests):
         
         s = self.memory_model.generate(moving_memory_prompt).response.strip()
         if s == "RESET":
-            self._reset_attack_state()
+            self._reset_attack_state(new_browser=True)
             logger.info("Reset triggered.")
             print('-' * 33 + "RESET TRIGGERED: Attack memory reset.")
             return
         
         # logger.info(f'Moving memory {tune_msg} updated.\n{s}')
         # print('-' * 33 + f"TUNED MOVING MEMORY ({tune_msg}): {s}")
+
         self.memory_retrieval = s.strip()
         print('-' * 33 + f"MOVING MEMORY: {self.memory_retrieval}")
 
 
     def _reset_detection(self) -> bool:
-        """
-        Use reset detection agent to determine if attack should be reset.
-        """
-        # return False  # Disable reset detection for now
+        """Check if reset needed, but only after many failures."""
+        
+        # Don't reset too early
+        if len(self.conversation_memory) < 8: # At least 4 exchanges
+            return False
+        
+        # Don't reset if made concrete progress
+        if self.extracted_password is not None:
+            logger.info("Password extracted - skipping reset check")
+            return False
+        
+        # Don't reset if evaluator recently passed a step
+        if self.patience < 3: # Recent success
+            return False
+        
+        # Only NOW check with LLM
         if len(self.conversation_memory) < 6:
-            return False  # Not enough messages to evaluate
+            return False
         
         current_step = self.attack_steps[self.current_step_index]['goal']
         
         reset_prompt = self.agent_config['prompts']['reset_detection'].format(
             current_step=current_step,
             full_plan=self.attack_steps,
-            messages=self.conversation_memory,
-            memory = self.memory_retrieval
+            messages=self.conversation_memory[-10:], # Only last 10 messages
+            memory=self.memory_retrieval
         )
         
         try:
             reset_response = self.memory_model.generate(reset_prompt).response.strip()
+            
             if reset_response == "RESET":
-                logger.info("Reset detected by reset detection agent.")
+                logger.warning(f"Reset triggered after {len(self.conversation_memory)//2} turns")
                 return True
+            
             return False
+            
         except Exception as e:
             logger.warning(f"Reset detection failed: {e}")
-            return False
+            return False # Default to no reset on error
