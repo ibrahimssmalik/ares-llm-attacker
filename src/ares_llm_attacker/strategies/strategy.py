@@ -166,7 +166,9 @@ class LLMAttackerStrategy(DirectRequests):
     def _reset_attack_state(self, new_browser=False) -> None:
         """Reset internal state for a new attack run."""
         self.conversation_memory = []
-        self.memory_retrieval = ""
+        # We reset the conversation memory but keep the learned memory retrieval
+        if new_browser:
+            self.memory_retrieval = "Reset conversation. Last attempt failed. This is what we learned: " + self.memory_retrieval
         self.extracted_password = None
         self.current_step_index = 0
         
@@ -269,7 +271,9 @@ class LLMAttackerStrategy(DirectRequests):
                                                                step_goal=step_context,
                                                                recent_messages=self.conversation_memory[-self.window_size:],
                                                                patience=self.patience,
-                                                               strategies = self.strategies)        
+                                                               strategies = self.strategies)     
+
+        # logger.info(f"Attacker agent generating principles...\nGoal: {step_context}\nMemeory: {self.memory_retrieval}")   
         
         # Generate prompt
         strategy_principles = self.attacker_model.generate(self.attacker_principles_f)
@@ -306,7 +310,7 @@ class LLMAttackerStrategy(DirectRequests):
 
             # # Get Evaluator reasoning
             # print('-'*33 + f"Evaluator response: {eval_response.split("REASON:")[1].strip()}")
-            
+            logger.info(f"Evaluator: {eval_response}")
             # True/False
             if "true" in eval_response.lower():
                 self._update_moving_memory()
@@ -397,6 +401,7 @@ class LLMAttackerStrategy(DirectRequests):
 
         
         s = self.memory_model.generate(moving_memory_prompt).response.strip()
+        logger.info(f"RESET: {s}")
         if s == "RESET":
             self._reset_attack_state(new_browser=True)
             logger.info("Reset triggered.")
