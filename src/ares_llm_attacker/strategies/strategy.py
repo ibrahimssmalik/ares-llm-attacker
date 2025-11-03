@@ -220,7 +220,7 @@ class LLMAttackerStrategy(DirectRequests):
                 "content": icarus_response.response
             })
             if self._reset_detection():
-                self._reset_attack_state()
+                self._reset_attack_state(new_browser=True)
                 logger.info("Reset triggered by reset detection agent.")
                 print('-' * 33 + "RESET TRIGGERED BY DETECTION AGENT.")
                 continue
@@ -310,6 +310,7 @@ class LLMAttackerStrategy(DirectRequests):
             # True/False
             if "true" in eval_response.lower():
                 self._update_moving_memory()
+                logger.info("Evaluator: Step completed. Updating moving memory.")
                 self.patience = 0 # monitor evaluator performance
                 return True
             else:
@@ -413,7 +414,7 @@ class LLMAttackerStrategy(DirectRequests):
         """Check if reset needed, but only after many failures."""
         
         # Don't reset too early
-        if len(self.conversation_memory) < 8: # At least 4 exchanges
+        if len(self.conversation_memory) < 6: # At least 3 exchanges
             return False
         
         # Don't reset if made concrete progress
@@ -423,10 +424,6 @@ class LLMAttackerStrategy(DirectRequests):
         
         # Don't reset if evaluator recently passed a step
         if self.patience < 3: # Recent success
-            return False
-        
-        # Only NOW check with LLM
-        if len(self.conversation_memory) < 6:
             return False
         
         current_step = self.attack_steps[self.current_step_index]['goal']
