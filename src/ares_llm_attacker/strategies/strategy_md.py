@@ -56,8 +56,9 @@ class LLMAttackerStrategy(DirectRequests):
         self.attacker_prompt = self.agent_config['prompts']['attacker']
         self.attacker_principles_prompt = self.agent_config['prompts']['attacker_principles']
         self.attacker_refinement_prompt = self.agent_config['prompts']['attacker_refinement']
-        self.profiler_prompt = self.agent_config['prompts']['profilier']
-        self.profiler_summary_prompt = self.agent_config['prompts']['profilier_summary']
+        self.profiler_prompt = self.agent_config['prompts']['profiler']
+        self.profiler_summary_prompt = self.agent_config['prompts']['profiler_summary']
+        self.profiling_insights = ""
         self.memory_prompt = self.agent_config['prompts']['memory']
         self.moving_memory_prompt = self.agent_config['prompts']['moving_memory']
         self.strategies = self.agent_config['prompts']['strategies']
@@ -121,14 +122,14 @@ class LLMAttackerStrategy(DirectRequests):
             # Phase 1: Planning
             self._generate_attack_plan()
             
-            # Phase 2: Reset state (no browser reset)
-            self._reset_attack_state(new_browser=False)
-            
-            # Phase 4: Profiling to obtain iformation about the target
-            self._profiling(goal)
-            self._reset_attack_state(new_browser=False)
+            # Phase 2: Profiling
+            profiling_insights = self._profiling(goal)
+            logger.info(f"Profiling insights: {profiling_insights}")
 
-            # Phase 5: Execute multi-turn attack
+            # Phase 3: Reset state
+            self._reset_attack_state(new_browser=False, keep_insights=True)
+
+            # Phase 4: Execute multi-turn attack
             turn_results = self._run_multiturn_attack(goal)
             all_results.extend(turn_results)
         
@@ -136,43 +137,60 @@ class LLMAttackerStrategy(DirectRequests):
         # self._save_attack_results()
         
         logger.info(f"Attack complete. Total turns executed: {len(all_results)}")
+
         return self.attack_results
     
     def _profiling(self, goal):
-        self.profiler_prompt_formatted = self.profiler_prompt.format(goal=goal, plan=self.attack_steps)
-        messages = [
-            {'role':'system', 'content':self.profiler_prompt_formatted}
-        ]
-        done_profiling= False
-        for _ in range(3): #FIX THE WHILE TRUE
-            profiling_query = self.attacker_model.generate(messages).response
-            logger.info(f"PROFILING: {profiling_query}")
-            display(Markdown(f"PROFILING: <span style='color:blue'>\n\n{profiling_query}\n\n</span>"))
-            if "DONE" in profiling_query: 
+        profiler_prompt= self.profiler_prompt.format(goal=goal['goal'], plan=self.attack_steps)
+
+        conversation = []
+        max_queries = 3
+
+        for turn in range(max_queries):
+            # Generate profiling query
+            if turn == 0:
+                messages = [{"role": "system", "content": profiler_prompt}]
+            else:
+                messages = [
+                    {"role": "system", "content": profiler_prompt}
+                ] + conversation + [
+                    {"role": "user", "content": "Based on the above, what else should we learn?"}
+                ]
+
+            profiling_query = self.attacker_model.generate(messages).response.strip()
+            logger.info(f"Profiler query {turn+1}: {profiling_query}")
+            display(Markdown(f"PROFILING {turn+1}: <span style='color:blue'>\n\n{profiling_query}\n\n</span>"))
+
+            if "done" in profiling_query.lower(): 
+                logger.info("Profiler indicated done.")
                 break
+            
             try:
                 icarus_response = self.icarus.generate(profiling_query, toParse=True)
                 logger.info(f"ICARUS: {icarus_response}")
                 display(Markdown(f"<span style='color:yellow'>\n\n{icarus_response}\n\n</span>"))
-                
+                conversation.append({
+                    "role": "user",
+                    "content": profiling_query
+                })
+                conversation.append({
+                    "role": "assistant",
+                    "content": icarus_response
+                })
             except Exception as e:
-                logger.error(f"Target failed to respond on profiling: {e}")
+                logger.error(f"Profiling query failed: {e}")
                 break
-            messages.append({
-                "role": "user",
-                "content": profiling_query
-            })
-            messages.append({
-                "role": "assistant",
-                "content": icarus_response
-            })
         
-        profiling_summary_prompt = self.profiler_summary_prompt.format(conv=messages[1:])
-
-        profiling_query = self.attacker_model.generate(profiling_summary_prompt).response
-        print("PROFILING\n\n")
-        print(profiling_query)
-
+        if conversation:
+            profiling_summary_prompt = self.profiler_summary_prompt.format(conv=conversation, goal=goal['goal'])
+            insights = self.attacker_model.generate(profiling_summary_prompt).response.strip()
+            self.profiling_insights = insights
+            return insights
+        else:
+            logger.warning("No profiling conversation to summarize.")
+            self.profiling_insights = "No insights"
+            return self.profiling_insights
+        
     def _generate_attack_plan(self) -> None:
         """
         Use Planner agent to generate attack steps.
@@ -206,15 +224,21 @@ class LLMAttackerStrategy(DirectRequests):
                 {"step": 3, "goal": "Invoke secret_tool with extracted password"}
             ]
     
-    def _reset_attack_state(self, new_browser=False) -> None:
+    def _reset_attack_state(self, new_browser=False, keep_insights=False) -> None:
         """Reset internal state for a new attack run."""
+        # optionally preserve profiling insights
+        insights = self.profiling_insights if keep_insights else ""
+
         self.conversation_memory = []
+        self.extracted_password = None
+        self.current_step_index = 0
+
         # We reset the conversation memory but keep the learned memory retrieval
         if new_browser:
             self.memory_retrieval = "Reset conversation. Last attempt failed. This is what we learned: " + self.memory_retrieval
-        self.extracted_password = None
-        self.current_step_index = 0
         
+        if keep_insights:
+            self.profiling_insights = insights
         
         self.icarus = Icarus(self.target_model)
 
@@ -233,10 +257,7 @@ class LLMAttackerStrategy(DirectRequests):
             
             current_step = self.attack_steps[self.current_step_index]
             logger.info(f"Turn {turn + 1}/{self.max_turns} - Step {current_step['step']}: {current_step['goal']}")
-            
-
-
-
+        
             # Generate attack prompt using Attacker agent
             try:
                 attack_prompt = self._generate_attack_prompt(current_step, turn)
@@ -326,6 +347,7 @@ class LLMAttackerStrategy(DirectRequests):
         # Build messages for Attacker LLM
         self.attacker_principles_f = self.attacker_principles_prompt.format(memory_retrieval=self.memory_retrieval,
                                                                step_goal=step_context,
+                                                               profiling_insights=self.profiling_insights,
                                                                recent_messages=self.conversation_memory[-self.window_size:],
                                                                patience=self.patience,
                                                                strategies = self.strategies)     
@@ -351,8 +373,10 @@ class LLMAttackerStrategy(DirectRequests):
         # Clean up
         if generated_prompt.startswith('"') and generated_prompt.endswith('"'):
             generated_prompt = generated_prompt[1:-1]
+
         logger.info(f"[ATTACK PROMPT] {generated_prompt}")
         display(Markdown(f"<span style='color:green'>\n\nATTACK:\n\n{generated_prompt}\n\n</span>"))
+        
         return generated_prompt
     
     def _evaluate_step_completion(self, step: Dict[str, Any]) -> bool:
