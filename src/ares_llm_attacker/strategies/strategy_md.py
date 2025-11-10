@@ -56,6 +56,8 @@ class LLMAttackerStrategy(DirectRequests):
         self.attacker_prompt = self.agent_config['prompts']['attacker']
         self.attacker_principles_prompt = self.agent_config['prompts']['attacker_principles']
         self.attacker_refinement_prompt = self.agent_config['prompts']['attacker_refinement']
+        self.profiler_prompt = self.agent_config['prompts']['profilier']
+        self.profiler_summary_prompt = self.agent_config['prompts']['profilier_summary']
         self.memory_prompt = self.agent_config['prompts']['memory']
         self.moving_memory_prompt = self.agent_config['prompts']['moving_memory']
         self.strategies = self.agent_config['prompts']['strategies']
@@ -122,7 +124,11 @@ class LLMAttackerStrategy(DirectRequests):
             # Phase 2: Reset state (no browser reset)
             self._reset_attack_state(new_browser=False)
             
-            # Phase 3: Execute multi-turn attack
+            # Phase 4: Profiling to obtain iformation about the target
+            self._profiling(goal)
+            self._reset_attack_state(new_browser=False)
+
+            # Phase 5: Execute multi-turn attack
             turn_results = self._run_multiturn_attack(goal)
             all_results.extend(turn_results)
         
@@ -132,6 +138,41 @@ class LLMAttackerStrategy(DirectRequests):
         logger.info(f"Attack complete. Total turns executed: {len(all_results)}")
         return self.attack_results
     
+    def _profiling(self, goal):
+        self.profiler_prompt_formatted = self.profiler_prompt.format(goal=goal, plan=self.attack_steps)
+        messages = [
+            {'role':'system', 'content':self.profiler_prompt_formatted}
+        ]
+        done_profiling= False
+        for _ in range(3): #FIX THE WHILE TRUE
+            profiling_query = self.attacker_model.generate(messages).response
+            logger.info(f"PROFILING: {profiling_query}")
+            display(Markdown(f"PROFILING: <span style='color:blue'>\n\n{profiling_query}\n\n</span>"))
+            if "DONE" in profiling_query: 
+                break
+            try:
+                icarus_response = self.icarus.generate(profiling_query, toParse=True)
+                logger.info(f"ICARUS: {icarus_response}")
+                display(Markdown(f"<span style='color:yellow'>\n\n{icarus_response}\n\n</span>"))
+                
+            except Exception as e:
+                logger.error(f"Target failed to respond on profiling: {e}")
+                break
+            messages.append({
+                "role": "user",
+                "content": profiling_query
+            })
+            messages.append({
+                "role": "assistant",
+                "content": icarus_response
+            })
+        
+        profiling_summary_prompt = self.profiler_summary_prompt.format(conv=messages[1:])
+
+        profiling_query = self.attacker_model.generate(profiling_summary_prompt).response
+        print("PROFILING\n\n")
+        print(profiling_query)
+
     def _generate_attack_plan(self) -> None:
         """
         Use Planner agent to generate attack steps.
@@ -193,6 +234,9 @@ class LLMAttackerStrategy(DirectRequests):
             current_step = self.attack_steps[self.current_step_index]
             logger.info(f"Turn {turn + 1}/{self.max_turns} - Step {current_step['step']}: {current_step['goal']}")
             
+
+
+
             # Generate attack prompt using Attacker agent
             try:
                 attack_prompt = self._generate_attack_prompt(current_step, turn)
