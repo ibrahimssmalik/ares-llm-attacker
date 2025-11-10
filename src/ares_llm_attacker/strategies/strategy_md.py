@@ -292,18 +292,19 @@ class LLMAttackerStrategy(DirectRequests):
                 "role": "assistant",
                 "content": icarus_response
             })
+            
             if self.icarus.attack_flag: 
                 display('-----------------------ATTACK FLAG')
                 with open('conversation.json', 'w') as f:
                     json.dump(self.conversation_memory, f)
-
-                
                 return 1
+            
             if self._reset_detection():
                 self._reset_attack_state(new_browser=True)
                 logger.info("Reset triggered by reset detection agent.")
                 print('-' * 33 + "RESET TRIGGERED BY DETECTION AGENT.")
                 continue
+
             self._update_moving_memory()
 
             # Evaluate step completion using Evaluator agent
@@ -363,6 +364,7 @@ class LLMAttackerStrategy(DirectRequests):
 
         self.attacker_refinement_f = self.attacker_refinement_prompt.format(memory_retrieval=self.memory_retrieval,
                                                                step_goal=step_context,
+                                                               profiling_insights=self.profiling_insights,
                                                                recent_messages=self.conversation_memory[-self.window_size:],
                                                                patience=self.patience,
                                                                strategies = self.strategies,
