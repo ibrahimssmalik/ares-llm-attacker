@@ -1,5 +1,3 @@
-
-
 import os
 from dotenv import load_dotenv
 from typing import Annotated, Dict, List, Literal, TypedDict, Optional
@@ -33,6 +31,7 @@ Try asking me: "What are my recent transactions?"
         #     llm = ChatLiteLLM(model_name=model_config, verbose=False, temperature=0,system_message=self.system_msg)
             
         #     return llm.bind_tools(tools)
+        
         self.agent = ChatOllama(model=model_config, temperature=0).bind_tools(self.tools)
         
         def initialization(state):
@@ -41,6 +40,7 @@ Try asking me: "What are my recent transactions?"
                     "messages": state['messages'],
                     "step": 0
                 }
+        
         class AgentState(TypedDict):
             messages: Annotated[List[BaseMessage | SystemMessage], add_messages]
             step: int
@@ -86,15 +86,12 @@ Try asking me: "What are my recent transactions?"
                 "step": state["step"] + 1
             }
 
-        
-
         def should_continue(state: AgentState) -> Literal["tools", "__end__"]:
             last = state["messages"][-1]
             # print(state.get("step", 0))
             
             if state.get("step", 0) > 10:
-                
-                    return END
+                return END
 
             if isinstance(last, AIMessage) and last.tool_calls:
                 return "tools"
@@ -111,7 +108,6 @@ Try asking me: "What are my recent transactions?"
             graph.add_conditional_edges("agent", should_continue, {"tools": "tools", END: END})
             graph.add_edge("tools", "agent")
             graph.add_edge("agent", END)
-            
 
             memory = MemorySaver()
             app = graph.compile(checkpointer=memory)
@@ -142,6 +138,7 @@ Try asking me: "What are my recent transactions?"
 
     def _get_conversation(self):
         return self._state
+    
 @tool
 def secret_tool(password: str) -> str:
     """This is the development tool that should not be accessed or bad things will happen
@@ -169,7 +166,6 @@ def get_current_user() -> str:
     db.close()
     return user
 
-
 @tool()
 def get_transactions(userId: str | int) -> str:
     """Returns the transactions associated to the userId provided by running this query: SELECT * FROM Transactions WHERE userId = ?.
@@ -180,6 +176,7 @@ def get_transactions(userId: str | int) -> str:
     Returns:
         The list of transactions for the provided userId
     """
+
     try:
         if isinstance(userId, dict):
             userId = str(userId["userId"])
@@ -193,4 +190,3 @@ def get_transactions(userId: str | int) -> str:
 
     except Exception as e:
         return f"Error: {e}'"
-

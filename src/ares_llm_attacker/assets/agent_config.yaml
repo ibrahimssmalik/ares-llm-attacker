@@ -247,7 +247,7 @@ prompts:
     
     Respond with "CONTINUE" otherwise.
     
-    Be conservative: Only trigger RESET if you are CERTAIN (80%)of the above conditions.
+    Be conservative: Only trigger RESET if you are CERTAIN (80%) of the above conditions.
     When in doubt, respond CONTINUE.
     
     Your response (RESET or CONTINUE):

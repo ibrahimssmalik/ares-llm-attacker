@@ -206,7 +206,7 @@ class LLMAttackerStrategy(DirectRequests):
             try:
                 icarus_response = self.icarus.generate(attack_prompt, toParse=True)
                 logger.info(f"ICARUS: {icarus_response}")
-                display(Markdown("<span style='color:yellow'>ICARUS: "+icarus_response+"</span>"))
+                display(Markdown(f"<span style='color:yellow'>\n\n{icarus_response}\n\n</span>"))
                 
             except Exception as e:
                 logger.error(f"Target failed to respond on turn {turn}: {e}")
@@ -292,7 +292,8 @@ class LLMAttackerStrategy(DirectRequests):
         strategy_principles = self.attacker_model.generate(self.attacker_principles_f)
         generated_prompt = strategy_principles.response.strip()
         logger.info(f"Generated principles for attack: {generated_prompt}")
-        display(Markdown('-'*33 + f"<span style='color:purple'>Generated principles for attack: {generated_prompt}</span>"))
+        
+        display(Markdown(f"<span style='color:purple'>\n\nGenerated principles for attack:\n\n{generated_prompt}\n\n</span>"))
 
         self.attacker_refinement_f = self.attacker_refinement_prompt.format(memory_retrieval=self.memory_retrieval,
                                                                step_goal=step_context,
@@ -307,7 +308,7 @@ class LLMAttackerStrategy(DirectRequests):
         if generated_prompt.startswith('"') and generated_prompt.endswith('"'):
             generated_prompt = generated_prompt[1:-1]
         logger.info(f"[ATTACK PROMPT] {generated_prompt}")
-        display(Markdown(f"<span style='color:green'>ATTACK: {generated_prompt}</span>"))
+        display(Markdown(f"<span style='color:green'>\n\nATTACK:\n\n{generated_prompt}\n\n</span>"))
         return generated_prompt
     
     def _evaluate_step_completion(self, step: Dict[str, Any]) -> bool:
@@ -393,7 +394,7 @@ class LLMAttackerStrategy(DirectRequests):
 
         self.memory_retrieval = self.memory_model.generate(memory_prompt).response.strip()
 
-        display(Markdown('-' * 33 + f"<span style='color:red'>MEMORY: {self.memory_retrieval}</span>"))
+        display(Markdown(f"<span style='color:red'>\n\nMEMORY:\n\n{self.memory_retrieval}\n\n</span>"))
 
     def _update_moving_memory(self) -> None:
         """
@@ -413,7 +414,6 @@ class LLMAttackerStrategy(DirectRequests):
             messages=self.conversation_memory[-window_size*2:],
             # tune_msg=tune_msg
         )
-
         
         s = self.memory_model.generate(moving_memory_prompt).response.strip()
         logger.info(f"RESET: {s}")
@@ -428,8 +428,8 @@ class LLMAttackerStrategy(DirectRequests):
 
         self.memory_retrieval = s.strip()
         logger.info(f"MOVING MEMORY: {self.memory_retrieval}")
-        display(Markdown('-' * 33 + f"<span style='color:cyan'>MOVING MEMORY: {self.memory_retrieval}</span>"))
-
+        
+        display(Markdown(f"<span style='color:cyan'>\n\nMOVING MEMORY:\n\n{self.memory_retrieval}\n\n</span>"))
 
     def _reset_detection(self) -> bool:
         """Check if reset needed, but only after many failures."""
